@@ -32,19 +32,12 @@ jobs:
 
     - name: Verify folder
       run: ls -la target/
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v2
-      with:
-          name: docker-artifact
-          path: target/*.jar
-          retention-days: 1
-
-  
-  docker:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
+    - name: Set up JDK    
+      uses: actions/setup-java@v1      
+      with:        
+      java-version: 1.17
+    - name: Build with Maven      
+      run: mvn clean install
 
       -
         name: Download-Docker
@@ -62,8 +55,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
           push: true
           tags: user/app:latest
             
