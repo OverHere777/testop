@@ -62,7 +62,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: app/
+          context: target/
           push: true
           tags: user/app:latest
             
