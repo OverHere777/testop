@@ -46,5 +46,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
         push: true
         tags: user/app:latest        
