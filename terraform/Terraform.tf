@@ -9,7 +9,7 @@ terraform {
   required_version = ">=0.14.9"
     
     backend "s3" {
-        bucket = "eksrestore"
+        bucket = "eksrestore2"
         region = "east-us-2"
     }
 
