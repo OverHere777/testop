@@ -6,40 +6,26 @@ terraform {
     }
   }
 
-  required_version = ">=0.14.9"
+  required_version = ">=1.5.0"
     
     backend "s3" {
-        bucket = "eksrestore2"
-        region = "east-us-2"
+        bucket = "eksrestore1"
+        region = "us-east-2"
+        key = "eks"
     }
 
 }
 
 provider "aws" {
-  version = "~>3.0"
-  region  = "east-us-2"
+  region  = "us-east-2"
 }
 
+module "vpc" {
+  source = "./modules/vpc"
 
-resource "aws_s3_bucket" "s3Bucket" {
-     bucket = "eksrestore1"
-     acl       = "public-read"
-
-     policy  = <<EOF
-{
-     "id" : "MakePublic",
-   "version" : "2012-10-17",
-   "statement" : [
-      {
-         "action" : [
-             "s3:GetObject"
-          ],
-         "effect" : "Allow",
-         "resource" : "arn:aws:s3:::[BUCKET_NAME_HERE]/*",
-         "principal" : "*"
-      }
-    ]
+  cidr_block = "10.0.0.0/24"
+  name = "EKSVPC"
+  tags = {
+    ambiente = "eksdev"
   }
-EOF
-
 }
