@@ -42,7 +42,5 @@ resource "aws_s3_bucket" "s3Bucket" {
   }
 EOF
 
-   website {
-       index_document = "index.html"
-   }
+
 }
